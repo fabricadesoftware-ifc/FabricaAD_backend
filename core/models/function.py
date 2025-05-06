@@ -1,0 +1,17 @@
+from django.db import models
+from usuario.models import Employer
+from .position import Position
+
+class Function(models.Model):
+    employer = models.ForeignKey(Employer, on_delete=models.PROTECT, related_name='functions')
+    supervisor = models.ForeignKey(Employer, on_delete=models.PROTECT, related_name='functions')
+    position = models.ForeignKey(Position, on_delete=models.PROTECT, related_name='+')
+    initial_date = models.DateField(auto_now_add=True)
+    final_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.employer.registration} - {self.supervisor.registration}'
+    
+    class Meta:
+        verbose_name = 'function'
+        verbose_name_plural = 'functions'
