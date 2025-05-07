@@ -4,7 +4,7 @@ from .position import Position
 
 class Function(models.Model):
     employer = models.ForeignKey(Employer, on_delete=models.PROTECT, related_name='functions')
-    supervisor = models.ForeignKey(Employer, on_delete=models.PROTECT, related_name='functions')
+    supervisor = models.ForeignKey(Employer, on_delete=models.PROTECT, related_name='employers')
     position = models.ForeignKey(Position, on_delete=models.PROTECT, related_name='+')
     initial_date = models.DateField(auto_now_add=True)
     final_date = models.DateField(null=True, blank=True)

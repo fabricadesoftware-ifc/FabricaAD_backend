@@ -9,4 +9,4 @@ class Enterprise(models.Model):
     
     class Meta:
         verbose_name = "enterprise"
-        verbose_plural_= "enterprise"
+        verbose_name_plural= "enterprises"
