@@ -3,3 +3,4 @@ from core import views
 router = DefaultRouter()
 
 router.register(r'functions', views.FunctionViewSet)
+router.register(r'positions', views.PositionViewSet)
