@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'core',
     'rest_framework',
     'uploader',
-    'usuario'
+    'usuario',
+    
 ]
 
 MIDDLEWARE = [
