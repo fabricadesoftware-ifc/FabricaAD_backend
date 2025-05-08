@@ -6,7 +6,7 @@ from core.models.enterprise import Enterprise
 
 class TelephoneSerializer(ModelSerializer):
     user_phone = SlugRelatedField(
-        slug_field='username',
+        slug_field='email',
         queryset=User.objects.all(),
         allow_null=True,
         required=False
