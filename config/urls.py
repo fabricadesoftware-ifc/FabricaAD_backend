@@ -23,7 +23,6 @@ from rest_framework.routers import DefaultRouter
 from core.router import router as core_router
 from usuario.router import router as user_router
 from uploader.router import router as uploader_router
-
 router = DefaultRouter()
 
 router.registry.extend(core_router.registry)
