@@ -7,13 +7,13 @@ from core.models.enterprise import Enterprise
 
 class Usuario(AbstractUser):
     username = None
-    email = models.EmailField(_("e-mail address"), unique=True)
-    registration = models.CharField(max_length=100, unique=True, default=None)
+    email = models.EmailField(_("e-mail address"), unique=True, null=True, blank=True)
+    registration = models.CharField(max_length=100, unique=True, default=None, null=True, blank=True)
     perfil = models.ForeignKey(Image, on_delete=models.CASCADE, default=None, null=True, blank=True, related_name='+')
-    enterprise = models.ForeignKey(Enterprise, on_delete=models.PROTECT, related_name='usuarios', default=None)
-
+    enterprise = models.ForeignKey(Enterprise, on_delete=models.PROTECT, related_name='usuarios', default=None, null=True, blank=True)
+    
     USERNAME_FIELD = "registration"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["email"]
     EMAIL_FIELD = "email"
 
     objects = CustomUserManager()
