@@ -5,5 +5,5 @@ from core.models import Enterprise
 class EnterpriseSerializer(ModelSerializer):
     class Meta:
         model = Enterprise
-        fields = __all__
+        fields = "__all__"
         

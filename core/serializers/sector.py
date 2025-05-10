@@ -8,4 +8,4 @@ class SectorSerializer(ModelSerializer):
     )
     class Meta:
         model = Sector
-        fields = __all__
+        fields = "__all__"
