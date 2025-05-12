@@ -6,4 +6,6 @@ class EnterpriseSerializer(ModelSerializer):
     class Meta:
         model = Enterprise
         fields = "__all__"
+
+
         

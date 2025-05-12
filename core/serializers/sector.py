@@ -1,11 +1,9 @@
-from rest_framework.serializers import ModelSerializer, SlugRelatedField
-from core.models import Sector, Enterprise
+from rest_framework.serializers import ModelSerializer
+from core.models import Sector
+from core.serializers import EnterpriseSerializer
 
 class SectorSerializer(ModelSerializer):
-    enterprise = SlugRelatedField(
-        queryset=Enterprise.objects.all(),
-        slug_field='name_enterprise'
-    )
+    enterprise = EnterpriseSerializer()
     class Meta:
         model = Sector
         fields = "__all__"

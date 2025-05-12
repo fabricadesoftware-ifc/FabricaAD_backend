@@ -19,7 +19,7 @@ class Usuario(AbstractUser):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.registration
+        return self.email
 
     class Meta:
         verbose_name = "Usuário"
