@@ -13,10 +13,8 @@ class UsuarioSerializer(ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        print(validated_data)
         validated_data['password'] = make_password(validated_data['password'])
         telephones = validated_data.pop("telephones", [])
-        print(telephones)
 
         user = super().create(validated_data)
 
