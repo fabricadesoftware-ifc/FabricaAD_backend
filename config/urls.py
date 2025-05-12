@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from django.views.generic import RedirectView
 from rest_framework.routers import DefaultRouter
 from core.router import router as core_router
@@ -35,6 +36,9 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view()),
     path('api/refresh/', TokenRefreshView.as_view()),
     path('admin/', admin.site.urls),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/swagger/', SpectacularSwaggerView.as_view(), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(), name='redoc'),
     path('api/', include(router.urls))
 ]
 
