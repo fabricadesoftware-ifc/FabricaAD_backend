@@ -8,7 +8,7 @@ class Avaliation(models.Model):
     next_evaluation_date = models.DateField(null=True, blank=True)
     strengths = models.TextField(null=True, blank=True)
     weaknesses = models.TextField(null=True, blank=True)
-    score = models.IntegerField(null=True, blank=True)
+    score = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
 
     def __str__(self):
         return f'{self.evaluated.registration} - {self.evaluator.registration}'

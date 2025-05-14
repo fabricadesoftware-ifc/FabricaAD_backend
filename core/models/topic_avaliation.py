@@ -4,7 +4,7 @@ from .topic import Topic
 
 class TopicAvaliation(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.PROTECT, related_name='topic_avaliations')
-    avaliation = models.ForeignKey(Avaliation, on_delete=models.PROTECT, related_name='topic_avaliations')
+    avaliation = models.ForeignKey(Avaliation, on_delete=models.PROTECT, related_name='topic_avaliations', null=True, blank=True)
     score = models.IntegerField(null=True, blank=True)
     feedback = models.TextField(null=True, blank=True)
 

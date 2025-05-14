@@ -6,11 +6,11 @@ from core.serializers.telephone import TelephoneSerializer
 
 
 class UsuarioSerializer(ModelSerializer):
-    telephones = TelephoneSerializer(many=True, required=False)
+    telephones = TelephoneSerializer(many=True, required=False, read_only=True)
     
     class Meta:
         model = Usuario
-        fields = "__all__"
+        fields = ['id', 'email', 'password', 'registration', 'enterprise', "telephones"]
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
@@ -24,9 +24,8 @@ class UsuarioSerializer(ModelSerializer):
                 Telephone.objects.create(user_phone=user, **telephone)
 
         return user
-
-
     
-    def update(self, instance, validated_data):
-        validated_data['password'] = make_password(validated_data['password'])
-        return validated_data
+class UsuarioInfoAvaliationSerializer(ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['email', 'first_name', 'last_name', 'registration', 'enterprise']

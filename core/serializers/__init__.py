@@ -4,5 +4,5 @@ from .function import FunctionCreateSerializer, FunctionSerializer
 from .enterprise import EnterpriseSerializer
 from .sector import SectorSerializer
 from .topic import TopicSerializer
-from .avaliation import AvaliationSerializer
+from .avaliation import AvaliationSerializer, AvaliationCreateSerializer
 from .topic_avaliation import TopicAvaliationSerializer
