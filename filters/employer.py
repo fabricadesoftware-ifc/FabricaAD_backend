@@ -1,4 +1,3 @@
-# filters.py (dentro do app `usuario`)
 import django_filters
 from ..usuario.models import Usuario
 
