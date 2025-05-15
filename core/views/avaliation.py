@@ -3,6 +3,8 @@ from core.serializers import AvaliationSerializer, AvaliationCreateSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.response import Response
+from rest_framework import status
 
 class AvaliationViewSet(ModelViewSet):
     queryset = Avaliation.objects.all()
@@ -19,4 +21,11 @@ class AvaliationViewSet(ModelViewSet):
         if self.action == 'create':
             return AvaliationCreateSerializer
         return AvaliationSerializer
+    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        avaliation = serializer.save()
+        read_serializer = AvaliationSerializer(avaliation, context={'request': request})
+        return Response(read_serializer.data, status=status.HTTP_201_CREATED)
     

@@ -4,7 +4,6 @@ from .models import Usuario
 from core.models.telephone import Telephone
 from core.serializers.telephone import TelephoneSerializer
 
-
 class UsuarioSerializer(ModelSerializer):
     telephones = TelephoneSerializer(many=True, required=False, read_only=True)
     

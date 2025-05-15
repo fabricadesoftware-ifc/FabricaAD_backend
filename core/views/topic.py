@@ -12,8 +12,8 @@ class TopicViewSet(ModelViewSet):
     authentication_classes = [JWTAuthentication]
 
     def get_queryset(self):
-        user = self.request.user
-        user_data = User.objects.get(email=user)    
+        user = self.request.user    
         if user.is_authenticated and not user.is_superuser:
+            user_data = User.objects.get(email=user)
             return Topic.objects.filter(enterprise_topic=user_data.enterprise)
         return Topic.objects.all()
