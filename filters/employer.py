@@ -1,0 +1,12 @@
+# filters.py (dentro do app `usuario`)
+import django_filters
+from ..usuario.models import Usuario
+
+class EmployerFilter(django_filters.FilterSet):
+    email = django_filters.CharFilter(field_name='email', lookup_expr='icontains')
+    registration = django_filters.CharFilter(field_name='registration', lookup_expr='icontains')
+    name = django_filters.CharFilter(field_name='first_name', lookup_expr='icontains')
+
+    class Meta:
+        model = Usuario
+        fields = ['email', 'registration', 'name']
