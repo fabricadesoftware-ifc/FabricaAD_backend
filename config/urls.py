@@ -25,6 +25,7 @@ from rest_framework.routers import DefaultRouter
 from core.router import router as core_router
 from usuario.router import router as user_router
 from uploader.router import router as uploader_router
+from email_alternatives.email_view import email_design
 router = DefaultRouter()
 
 router.registry.extend(core_router.registry)
@@ -39,6 +40,7 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/swagger/', SpectacularSwaggerView.as_view(), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(), name='redoc'),
+    path('design/', email_design),
     path('api/', include(router.urls))
 ]
 

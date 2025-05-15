@@ -1,5 +1,8 @@
 from django.db import models
 from usuario.models import Usuario as User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from email_alternatives.send_email_to_evaluted import send_email_to_evaluated
 
 class Avaliation(models.Model):
     evaluated = models.ForeignKey(User, on_delete=models.PROTECT, related_name='evaluated')
@@ -17,3 +20,12 @@ class Avaliation(models.Model):
         verbose_name = "Avaliation"
         verbose_name_plural = "Avaliations"
         ordering = ['-evaluation_date']
+
+@receiver(post_save, sender=Avaliation)
+def send_email_after_evaluated_receive_score(instance, created, sender, **kwargs):
+    if created: 
+        send_email_to_evaluated(evaluated=instance.evaluated, evaluator=instance.evaluator, score=instance.score)
+    
+        
+
+    
