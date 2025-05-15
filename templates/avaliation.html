@@ -6,9 +6,123 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Design Avaliação</h1>
-    <p>{{avaliacao}}</p>
-    <p>{{avaliador}}</p>
-    <p>{{avaliado}}</p>
+    <div class="container">
+        <div class="evaluation">
+            <h1 class="email-title">Foi realizada sua avaliação trimestral!</h1>
+            <div class="show-evaluation">
+                <div class="note">
+                    <div style="width: 120px; height: 120px;">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="54" stroke="#ffffff" stroke-width="8" fill="none" />
+                        <circle id="progressCircle" cx="60" cy="60" r="54" stroke="#4B4BEB" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(0 60 60)"/>
+                        <text x="60" y="65" text-anchor="middle" font-size="18" fill="#000" class="text">
+                        <tspan id="notaTexto" style="font-size: 24px;">0,0</tspan>
+                        </text>
+                    </svg>
+                    </div>
+                </div>
+                <div class="bar">
+                </div>
+                <div class="infos">
+                    <div>
+                        <p>Avaliador</p>
+                        <h2>Roberto D. Souza</h2>
+                    </div>
+                    <div>
+                        <p>Data</p>
+                        <h2>15/05/2025</h2>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="see-button">Ver Avaliação</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const nota = 7.5;
+        const circle = document.getElementById("progressCircle");
+        const text = document.getElementById("notaTexto");
+        const raio = 54;
+        const comprimento = 2 * Math.PI * raio;
+        const preenchido = (nota / 10) * comprimento;
+        circle.style.strokeDashoffset = (comprimento - preenchido).toFixed(2);
+        text.textContent = nota.toFixed(1).replace('.', ',');
+    </script>
 </body>
 </html>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    font-family: "Poppins", sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #F0F5F9;
+}
+.email-title{
+    font-size: 24px;
+    font-weight: 500;
+}
+.evaluation{
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    box-shadow: 0 4px 5px 1px #E2E9F6;
+    width: 600px;
+    padding: 30px;
+    gap: 42px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.infos p, .note p{
+    font-size: 12px;
+    color: rgb(0, 0, 0, 0.25);
+}
+.infos h2{
+    font-size: 16px;
+    font-weight: 400;
+}
+.note h2{
+    font-size: 24px;
+    font-weight: 400;
+}
+.see-button{
+    background-color: #4B4BEB;
+    color: #FFFFFF;
+    border-radius: 15px;
+    padding: 13px 70px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+.show-evaluation{
+    display: flex;
+    align-items: center;
+    gap: 60px;  
+}
+.bar{
+    width: 2px;
+    height: 100px;
+    background-color: hsla(0, 0%, 0%, 0.25);
+}
+.circle{
+    width: 120px;
+    height: 120px;
+    border: 8px solid #4B4BEB;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+</style>
