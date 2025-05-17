@@ -1,5 +1,5 @@
 import django_filters
-from ..usuario.models import Usuario
+from core.models import Usuario
 
 class EmployerFilter(django_filters.FilterSet):
     email = django_filters.CharFilter(field_name='email', lookup_expr='icontains')
