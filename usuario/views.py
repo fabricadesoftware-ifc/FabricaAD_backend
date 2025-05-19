@@ -4,8 +4,10 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Usuario
 from .serializers import UsuarioSerializer
+from filters import EmployerFilter
 
 
 class UsuarioViewSet(ModelViewSet):
@@ -13,6 +15,9 @@ class UsuarioViewSet(ModelViewSet):
     serializer_class = UsuarioSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     authentication_classes = [JWTAuthentication]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = EmployerFilter
+    
 
     def get_queryset(self):
         user = self.request.user

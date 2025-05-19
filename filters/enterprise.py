@@ -6,4 +6,4 @@ class EnterpriseFilter(django_filters.FilterSet):
 
     class Meta:
         model = Enterprise
-        fields = ['nome']
+        fields = ['name']

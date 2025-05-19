@@ -9,7 +9,7 @@ class UsuarioSerializer(ModelSerializer):
     
     class Meta:
         model = Usuario
-        fields = ['id', 'email', 'password', 'registration', 'enterprise', "telephones"]
+        fields = ['id', 'email', 'password', 'registration', 'enterprise', "telephones", 'first_name', 'last_name']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])

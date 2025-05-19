@@ -1,5 +1,5 @@
 import django_filters
-from core.models import Usuario
+from usuario.models import Usuario as User
 
 class EmployerFilter(django_filters.FilterSet):
     email = django_filters.CharFilter(field_name='email', lookup_expr='icontains')
@@ -7,5 +7,5 @@ class EmployerFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(field_name='first_name', lookup_expr='icontains')
 
     class Meta:
-        model = Usuario
+        model = User
         fields = ['email', 'registration', 'name']
