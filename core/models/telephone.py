@@ -5,7 +5,7 @@ from .enterprise import Enterprise
 class Telephone(models.Model):
     number = models.CharField(max_length=9, blank=False, null=False)
     type = models.CharField(max_length=45, blank=True, null=True)
-    user_phone = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True, default=None)
+    user_phone = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True, default=None, related_name='telephones')
     enterprise_phone = models.ForeignKey(Enterprise, on_delete=models.PROTECT, null=True, blank=True, default=None)
 
     def __str__(self):
