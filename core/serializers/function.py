@@ -19,6 +19,7 @@ class FunctionCreateSerializer(ModelSerializer):
         model = Function
         fields = '__all__'
 
+
     def create(self, validated_data):
         employer_obj = validated_data.pop('employer')
 

@@ -1,12 +1,15 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, CharField
 from django.contrib.auth.hashers import make_password
 from .models import Usuario
 from core.models.telephone import Telephone
-from core.models.enterprise import Enterprise
 from core.serializers.telephone import TelephoneSerializer
+from validations.validation_employer import validate_employer
 
 class UsuarioSerializer(ModelSerializer):
     telephones = TelephoneSerializer(many=True, required=False)
+    registration = CharField(required=False, validators=[])
+    email = CharField(required=False, allow_blank=True, allow_null=True,validators=[])
+    password = CharField(required=False, allow_blank=True, allow_null=True, validators=[])
     class Meta:
         model = Usuario
         fields = ['id', 'email', 'password', 'registration', 'enterprise', "telephones", 'first_name', 'last_name']
@@ -23,7 +26,11 @@ class UsuarioSerializer(ModelSerializer):
                 Telephone.objects.create(user_phone=user, **telephone)
 
         return user
-    
+
+    def validate(self, attrs):
+        validate_employer(attrs)
+        return super().validate(attrs)
+
 class UsuarioInfoAvaliationSerializer(ModelSerializer):
     class Meta:
         model = Usuario
