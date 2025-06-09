@@ -28,8 +28,11 @@ class UsuarioSerializer(ModelSerializer):
 
         return user
 
+    def validate(self, attrs):
+        validate_employer(attrs)
+        return super().validate(attrs)
 
-class UsuarioInfoAvaliationSerializer(ModelSerializer):
+class UsuarioInfoSerializer(ModelSerializer):
     class Meta:
         model = Usuario
         fields = ['email', 'first_name', 'last_name', 'registration', 'enterprise']

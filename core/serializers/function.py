@@ -1,13 +1,15 @@
 from core.models import Function, Position, Sector
 from rest_framework.serializers import ModelSerializer, SlugRelatedField,PrimaryKeyRelatedField, ValidationError
-from usuario.serializers import UsuarioSerializer
+from usuario.serializers import UsuarioInfoSerializer
 from usuario.models import Usuario as User
 from core.serializers.sector import SectorSerializer
-from validations import validate_function, validate_employer
+from validations import validate_function
 
 class FunctionCreateSerializer(ModelSerializer):
-    employer = UsuarioSerializer()
-    supervisor = SlugRelatedField(slug_field='registration', queryset=User.objects.all(), validators=[], allow_null=True)
+    employer = UsuarioInfoSerializer(read_only=True)
+    employer_registration = SlugRelatedField(slug_field='registration', write_only=True, queryset=User.objects.all(), allow_null=True)
+    supervisor = UsuarioInfoSerializer(read_only=True)
+    supervisor_registration = SlugRelatedField(slug_field='registration', write_only=True, queryset=User.objects.all(), allow_null=True)
     position = SlugRelatedField(slug_field='name', queryset=Position.objects.all(), validators=[], allow_null=True)
     sector = SectorSerializer(read_only=True)
     sector_id = PrimaryKeyRelatedField(
@@ -18,43 +20,25 @@ class FunctionCreateSerializer(ModelSerializer):
     )
     class Meta:
         model = Function
-        fields = '__all__'
+        fields = [
+            'id',
+            'employer', 'employer_registration',
+            'supervisor', 'supervisor_registration',
+            'position',
+            'sector', 'sector_id',
+        ]
 
     def create(self, validated_data):
-        employer_obj = validated_data.pop('employer')
+        employer = validated_data.pop('employer_registration', None)
+        supervisor = validated_data.pop('supervisor_registration', None)
 
-        enterprise_id = employer_obj['enterprise'].id
+        validated_data['employer'] = employer
+        validated_data['supervisor'] = supervisor
 
-        employer_obj['enterprise'] = enterprise_id
-
-        employer_serializer = UsuarioSerializer(data=employer_obj)
-        employer_serializer.is_valid(raise_exception=True)
-        employer = employer_serializer.save()
-
-        function = Function.objects.create(
-            employer=employer,
-            **validated_data
-        )
-
-        return function
-
+        return Function.objects.create(**validated_data)
+    
     def validate(self, attrs):
-        errors = {}
-        employer_data = attrs.get('employer')
-
-        try:
-            validate_function(attrs)
-        except ValidationError as e:
-            errors.update(e.detail)
-
-        try: 
-            validate_employer(employer_data)
-        except ValidationError as e:
-            errors['employer'] = e.detail
-        
-        if errors:
-            raise ValidationError(errors)
-
+        validate_function(attrs)
         return super().validate(attrs)
 
 
@@ -63,8 +47,3 @@ class FunctionSerializer(ModelSerializer):
         model = Function
         fields = '__all__'
         depth = 1
-
-
-    
-
-    
