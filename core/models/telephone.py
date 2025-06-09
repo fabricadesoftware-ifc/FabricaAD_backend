@@ -14,5 +14,6 @@ class Telephone(models.Model):
     class Meta:
         verbose_name = 'telephone'
         verbose_name_plural = 'telephones'
+
         
     
