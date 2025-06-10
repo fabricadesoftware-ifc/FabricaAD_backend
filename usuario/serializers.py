@@ -4,10 +4,11 @@ from .models import Usuario
 from core.models.telephone import Telephone
 from core.serializers.telephone import TelephoneSerializer
 from validations.validation_employer import validate_employer
+from rest_framework.serializers import ValidationError
 
 class UsuarioSerializer(ModelSerializer):
     telephones = TelephoneSerializer(many=True, required=False)
-    registration = CharField(required=False, validators=[])
+    registration = CharField(required=False, allow_blank=True, validators=[])
     email = CharField(required=False, allow_blank=True, allow_null=True,validators=[])
     password = CharField(required=False, allow_blank=True, allow_null=True, validators=[])
     class Meta:
@@ -31,7 +32,7 @@ class UsuarioSerializer(ModelSerializer):
         validate_employer(attrs)
         return super().validate(attrs)
 
-class UsuarioInfoAvaliationSerializer(ModelSerializer):
+class UsuarioInfoSerializer(ModelSerializer):
     class Meta:
         model = Usuario
         fields = ['email', 'first_name', 'last_name', 'registration', 'enterprise']

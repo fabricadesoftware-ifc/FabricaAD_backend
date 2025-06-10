@@ -4,9 +4,9 @@ from usuario.models import Usuario as User
 from .sector import Sector
 
 class Function(models.Model):
-    employer = models.ForeignKey(User, on_delete=models.PROTECT, related_name='functions')
-    supervisor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employers')
-    position = models.ForeignKey(Position, on_delete=models.PROTECT, related_name='+')
+    employer = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employer')
+    supervisor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='supervisor')
+    position = models.ForeignKey(Position, on_delete=models.PROTECT, related_name='position')
     initial_date = models.DateField(auto_now_add=True)
     final_date = models.DateField(null=True, blank=True)
     sector = models.ForeignKey(Sector, on_delete=models.PROTECT, default=None)
