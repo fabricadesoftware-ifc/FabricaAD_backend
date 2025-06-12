@@ -1,12 +1,12 @@
 from core.models import Avaliation, TopicAvaliation
 from rest_framework.serializers import ModelSerializer, SlugRelatedField
 from usuario.models import Usuario as User
-from usuario.serializers import UsuarioInfoAvaliationSerializer
+from usuario.serializers import UsuarioInfoSerializer
 from .topic_avaliation import TopicAvaliationSerializer
 
 class AvaliationSerializer(ModelSerializer):
-    evaluated = UsuarioInfoAvaliationSerializer()
-    evaluator = UsuarioInfoAvaliationSerializer()
+    evaluated = UsuarioInfoSerializer()
+    evaluator = UsuarioInfoSerializer()
 
     class Meta:
         model = Avaliation
