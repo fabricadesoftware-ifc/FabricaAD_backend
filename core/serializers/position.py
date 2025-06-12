@@ -10,4 +10,4 @@ class PositionSerializer(ModelSerializer):
 
     def validate(self, attrs):
         validate_position(attrs)
-        return super().validate(attrs)
+        return attrs
