@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SlugRelatedField
+from validations.validation_telephone import validate_telephone
 
 from core.models import Telephone
 from usuario.models import Usuario as User
@@ -22,4 +23,6 @@ class TelephoneSerializer(ModelSerializer):
         model = Telephone
         fields = "__all__"
 
-        
+    def validate(self, attrs):
+        validate_telephone(attrs)
+        return attrs
