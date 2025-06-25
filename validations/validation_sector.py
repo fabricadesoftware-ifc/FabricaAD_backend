@@ -23,6 +23,6 @@ def validate_sector(attrs):
         errors.setdefault('description', []).append('A descrição deve ter no máximo 500 caracteres.')
 
     if errors:
-        raise serializers.ValidationError(errors)
+        raise ValidationError(errors)
 
     return attrs
