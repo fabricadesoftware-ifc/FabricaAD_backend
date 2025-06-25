@@ -6,3 +6,4 @@ from .validation_telephone import validate_telephone
 from .validation_sector import validate_sector
 from .validation_enterprise import validate_enterprise
 from .validation_topicavaliation import validate_topicavaliation
+from .validation_topic import validate_topic
