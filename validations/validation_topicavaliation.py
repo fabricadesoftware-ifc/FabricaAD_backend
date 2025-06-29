@@ -5,15 +5,11 @@ def validate_topicavaliation(attrs):
     errors = {}
 
     topic = attrs.get('topic')
-    avaliation = attrs.get('avaliation')
     score = attrs.get('score')
     feedback = attrs.get('feedback')
 
     if not topic:
         errors['topic'] = ['O tópico não pode ser vazio.']
-
-    if not avaliation:
-        errors['avaliation'] = ['A avaliação não pode ser vazia.']
 
     if not score:
         errors['score'] = ['A pontuação não pode ser vazia.']
