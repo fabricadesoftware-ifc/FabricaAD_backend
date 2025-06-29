@@ -1,8 +1,10 @@
 from core.models import Avaliation, TopicAvaliation
-from rest_framework.serializers import ModelSerializer, SlugRelatedField
+from rest_framework.serializers import ModelSerializer, SlugRelatedField, DateField
 from usuario.models import Usuario as User
 from usuario.serializers import UsuarioInfoSerializer
 from .topic_avaliation import TopicAvaliationSerializer
+
+from validations import validate_avaliation
 
 class AvaliationSerializer(ModelSerializer):
     evaluated = UsuarioInfoSerializer()
@@ -17,22 +19,30 @@ class AvaliationCreateSerializer(ModelSerializer):
     evaluated = SlugRelatedField(
         slug_field='registration',
         queryset=User.objects.all(),
-        write_only=True
+        write_only=True,
+        required=False,
+        allow_null=True
     )
     evaluator = SlugRelatedField(
         slug_field='registration',
         queryset=User.objects.all(),
-        write_only=True
+        write_only=True,
+        required=False,
+        allow_null=True
     )
+    next_evaluation_date = DateField(required=False, allow_null=True, validators=[])
     topics = TopicAvaliationSerializer(many=True, required=False, write_only=True)
 
     class Meta:
         model = Avaliation
         fields = '__all__'
 
+    def validate(self, attrs):
+        validate_avaliation(attrs)
+        return super().validate(attrs)
+
     def create(self, validated_data):
         topics_obj = validated_data.pop("topics", [])
-
         avaliation = super().create(validated_data)
 
         for topic_data in topics_obj:
