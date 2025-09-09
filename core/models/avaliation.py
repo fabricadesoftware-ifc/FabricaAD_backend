@@ -3,6 +3,8 @@ from usuario.models import Usuario as User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from email_alternatives.send_email_to_evaluted import send_email_to_evaluated
+from datetime import date
+
 
 class Avaliation(models.Model):
     evaluated = models.ForeignKey(User, on_delete=models.PROTECT, related_name='evaluated')
@@ -20,6 +22,10 @@ class Avaliation(models.Model):
         verbose_name = "Avaliation"
         verbose_name_plural = "Avaliations"
         ordering = ['-evaluation_date']
+    
+    @property
+    def avaliation_is_in_day(self):
+       return date.today() >= self.next_evaluation_date
 
 @receiver(post_save, sender=Avaliation)
 def send_email_after_evaluated_receive_score(instance, created, sender, **kwargs):

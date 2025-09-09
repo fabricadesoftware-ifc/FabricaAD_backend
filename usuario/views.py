@@ -20,9 +20,8 @@ class UsuarioViewSet(ModelViewSet):
     
 
     def get_queryset(self):
-        user = self.request.user
-        if user.is_authenticated and not user.is_superuser:
-            user_data = Usuario.objects.get(email=user)
+        if self.request.user.is_authenticated and not self.request.user.is_superuser:
+            user_data = Usuario.objects.get(email=self.request.user)
             return Usuario.objects.filter(enterprise=user_data.enterprise)
         return Usuario.objects.all()
 

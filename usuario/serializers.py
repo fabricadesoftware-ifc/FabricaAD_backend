@@ -13,7 +13,7 @@ class UsuarioSerializer(ModelSerializer):
     password = CharField(required=False, allow_blank=True, allow_null=True, validators=[])
     class Meta:
         model = Usuario
-        fields = ['id', 'email', 'password', 'registration', 'enterprise', "telephones", 'first_name', 'last_name']
+        fields = ['id', 'email', 'password', 'registration', 'enterprise', "telephones", 'first_name', 'last_name', 'is_superuser', 'groups']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
