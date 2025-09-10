@@ -17,7 +17,6 @@ class UsuarioViewSet(ModelViewSet):
     authentication_classes = [JWTAuthentication]
     filter_backends = [DjangoFilterBackend]
     filterset_class = EmployerFilter
-    
 
     def get_queryset(self):
         if self.request.user.is_authenticated and not self.request.user.is_superuser:

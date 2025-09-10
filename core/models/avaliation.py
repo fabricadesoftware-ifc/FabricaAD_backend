@@ -26,6 +26,19 @@ class Avaliation(models.Model):
     @property
     def avaliation_is_in_day(self):
        return date.today() >= self.next_evaluation_date
+    
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        user = self.evaluated
+        user_avaliation = Avaliation.objects.filter(evaluated=user)
+
+        if user_avaliation.exists():
+            user.media = sum(sco.score for sco in user_avaliation) / len(user_avaliation)
+        else:
+            user.media = 0 
+
+        user.save(update_fields=["media"]) 
+
+        return super().save(force_insert, force_update, using, update_fields)
 
 @receiver(post_save, sender=Avaliation)
 def send_email_after_evaluated_receive_score(instance, created, sender, **kwargs):

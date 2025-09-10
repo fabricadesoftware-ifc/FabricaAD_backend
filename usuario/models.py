@@ -11,6 +11,7 @@ class Usuario(AbstractUser):
     registration = models.CharField(max_length=100, unique=True, default=None, null=True, blank=True)
     perfil = models.ForeignKey(Image, on_delete=models.CASCADE, default=None, null=True, blank=True, related_name='+')
     enterprise = models.ForeignKey(Enterprise, on_delete=models.PROTECT, related_name='usuarios', default=None, null=True, blank=True)
+    media = models.DecimalField(max_digits=3, decimal_places=1, default=0.00)
     
     USERNAME_FIELD = "registration"
     REQUIRED_FIELDS = ["email"]

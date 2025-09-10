@@ -1,5 +1,5 @@
 from core.models import Avaliation, TopicAvaliation
-from rest_framework.serializers import ModelSerializer, SlugRelatedField, DateField
+from rest_framework.serializers import ModelSerializer, SlugRelatedField, DateField, ReadOnlyField
 from usuario.models import Usuario as User
 from usuario.serializers import UsuarioInfoSerializer
 from .topic_avaliation import TopicAvaliationSerializer
@@ -9,6 +9,7 @@ from validations import validate_avaliation
 class AvaliationSerializer(ModelSerializer):
     evaluated = UsuarioInfoSerializer()
     evaluator = UsuarioInfoSerializer()
+    avaliation_is_in_day = ReadOnlyField()
 
     class Meta:
         model = Avaliation
