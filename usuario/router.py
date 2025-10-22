@@ -5,4 +5,4 @@ from usuario import views
 app_name = "usuario"
 
 router = DefaultRouter()
-router.register("usuarios", views.UsuarioViewSet, basename='users')
+router.register("users", views.UsuarioViewSet, basename='users')
